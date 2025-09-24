@@ -196,6 +196,6 @@ class Program
         }
 
         if (!found)
-            Console.WriteLine("Совпадений не найдено."); 
+            Console.WriteLine("Совпадений не найдено.");
     }
 }
