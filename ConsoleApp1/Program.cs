@@ -48,7 +48,7 @@ namespace UniversitySystem
         }
 
         // Менеджер системы
-    class UniversityManager
+        class UniversityManager
         {
             public List<Student> Students = new List<Student>();
             public List<Teacher> Teachers = new List<Teacher>();
@@ -156,7 +156,7 @@ namespace UniversitySystem
 
             public void ShowStudents()
             {
-                Console.WriteLine("\n--- Студенты ---");
+                Console.WriteLine("\n Студенты ");
                 foreach (var s in Students)
                     Console.WriteLine($"{s.Id}. {s.Name} ({s.Email})");
                 Console.WriteLine();
@@ -164,7 +164,7 @@ namespace UniversitySystem
 
             public void ShowTeachers()
             {
-                Console.WriteLine("\n--- Преподаватели ---");
+                Console.WriteLine("\n Преподаватели ");
                 foreach (var t in Teachers)
                     Console.WriteLine($"{t.Id}. {t.Name} ({t.Department})");
                 Console.WriteLine();
@@ -172,10 +172,50 @@ namespace UniversitySystem
 
             public void ShowCourses()
             {
-                Console.WriteLine("\n--- Курсы ---");
+                Console.WriteLine("\n Курсы ");
                 foreach (var c in Courses)
                     Console.WriteLine($"{c.Code} - {c.Title}");
                 Console.WriteLine();
             }
         }
 
+        class Program
+        {
+            static void Main(string[] args)
+            {
+                UniversityManager manager = new UniversityManager();
+
+                while (true)
+                {
+                    Console.WriteLine("СИСТЕМА УНИВЕРСИТЕТА");
+                    Console.WriteLine("1. Добавить студента");
+                    Console.WriteLine("2. Добавить преподавателя");
+                    Console.WriteLine("3. Создать курс");
+                    Console.WriteLine("4. Назначить преподавателя на курс");
+                    Console.WriteLine("5. Записать студента на курс");
+                    Console.WriteLine("6. Показать студентов");
+                    Console.WriteLine("7. Показать преподавателей");
+                    Console.WriteLine("8. Показать курсы");
+                    Console.WriteLine("0. Выход");
+
+                    Console.Write("Выберите действие: ");
+                    string input = Console.ReadLine();
+                    Console.WriteLine();
+
+                    switch (input)
+                    {
+                        case "1": manager.CreateStudent(); break;
+                        case "2": manager.CreateTeacher(); break;
+                        case "3": manager.CreateCourse(); break;
+                        case "4": manager.AssignTeacherToCourse(); break;
+                        case "5": manager.EnrollStudentToCourse(); break;
+                        case "6": manager.ShowStudents(); break;
+                        case "7": manager.ShowTeachers(); break;
+                        case "8": manager.ShowCourses(); break;
+                        case "0": return;
+                        default: Console.WriteLine("Неверный выбор\n"); break;
+                    }
+                }
+            }
+        }
+    }
