@@ -93,3 +93,17 @@ namespace UniversitySystem
                 Courses.Add(new Course { Code = code, Title = title });
                 Console.WriteLine("Курс создан\n");
             }
+
+            public void AssignTeacherToCourse()
+            {
+                Console.WriteLine("Выберите курс:");
+                ShowCourses();
+                Console.Write("Введите код курса: ");
+                string code = Console.ReadLine();
+
+                Course course = Courses.FirstOrDefault(c => c.Code == code);
+                if (course == null)
+                {
+                    Console.WriteLine("Курс не найден.");
+                    return;
+                }
