@@ -47,10 +47,49 @@ namespace UniversitySystem
             }
         }
 
-        / Менеджер для управления системой
+        // Менеджер системы
     class UniversityManager
         {
             public List<Student> Students = new List<Student>();
             public List<Teacher> Teachers = new List<Teacher>();
             public List<Course> Courses = new List<Course>();
 
+            public void CreateStudent()
+            {
+                Console.Write("Введите имя студента: ");
+                string name = Console.ReadLine();
+
+                Console.Write("Введите email: ");
+                string email = Console.ReadLine();
+
+                int id = Students.Count + 1;
+
+                Students.Add(new Student { Id = id, Name = name, Email = email });
+                Console.WriteLine("Студент успешно добавлен\n");
+            }
+
+            public void CreateTeacher()
+            {
+                Console.Write("Введите имя преподавателя: ");
+                string name = Console.ReadLine();
+
+                Console.Write("Введите кафедру: ");
+                string department = Console.ReadLine();
+
+                int id = Teachers.Count + 1;
+
+                Teachers.Add(new Teacher { Id = id, Name = name, Department = department });
+                Console.WriteLine("Преподаватель учпешно добавлен\n");
+            }
+
+            public void CreateCourse()
+            {
+                Console.Write("Введите код курса (например CS101): ");
+                string code = Console.ReadLine();
+
+                Console.Write("Введите название курса: ");
+                string title = Console.ReadLine();
+
+                Courses.Add(new Course { Code = code, Title = title });
+                Console.WriteLine("Курс создан\n");
+            }
