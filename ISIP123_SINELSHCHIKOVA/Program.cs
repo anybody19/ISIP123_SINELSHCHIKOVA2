@@ -68,3 +68,55 @@ namespace LibraryApp
                 Console.WriteLine("0. Выход");
                 Console.Write("Выберите команду: ");
                 string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1": AddBook(); break;
+                    case "2": DeleteBook(); break;
+                    case "3": SearchBooks(); break;
+                    case "4": SortBooks(); break;
+                    case "5": ShowMostExpensiveAndCheapest(); break;
+                    case "6": GroupByAuthors(); break;
+                    case "7": BulkImport(); break;
+                    case "8": AddToCart(); break;
+                    case "9": ShowCart(); break;
+                    case "0": return;
+                    default: Console.WriteLine("Неверная команда."); break;
+                }
+            }
+        }
+
+        static void InitializeTestData()
+        {
+            books.Add(new Book("Война и мир", "Лев Толстой", Genre.Fiction, 1869, 1200));
+            books.Add(new Book("Мастер и Маргарита", "Михаил Булгаков", Genre.Fiction, 1966, 800));
+            books.Add(new Book("Хоббит", "Дж. Р. Р. Толкин", Genre.Fantasy, 1937, 500));
+            books.Add(new Book("Атлант расправил плечи", "Айн Рэнд", Genre.NonFiction, 1957, 900));
+            books.Add(new Book("Шерлок Холмс", "Артур Конан Дойл", Genre.Mystery, 1892, 450));
+        }
+
+        static void AddBook()
+        {
+            try
+            {
+                Console.Write("Название: ");
+                string title = Console.ReadLine();
+                Console.Write("Автор: ");
+                string author = Console.ReadLine();
+                Console.WriteLine("Жанры: " + string.Join(", ", Enum.GetNames(typeof(Genre))));
+                Console.Write("Выберите жанр: ");
+                if (!Enum.TryParse(Console.ReadLine(), out Genre genre)) { Console.WriteLine("Неверный жанр."); return; }
+                Console.Write("Год: ");
+                if (!int.TryParse(Console.ReadLine(), out int year)) { Console.WriteLine("Неверный год."); return; }
+                Console.Write("Цена: ");
+                if (!decimal.TryParse(Console.ReadLine(), out decimal price)) { Console.WriteLine("Неверная цена."); return; }
+
+                books.Add(new Book(title, author, genre, year, price));
+                Console.WriteLine("Книга добавлена.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка: {ex.Message}");
+            }
+        }
+
