@@ -204,3 +204,62 @@ namespace LibraryApp
             Console.WriteLine("\nКоличество книг по авторам:");
             foreach (var g in groups) Console.WriteLine($"{g.Key}: {g.Count()} книг");
         }
+
+        static void GroupByAuthors()
+        {
+            var groups = books.GroupBy(b => b.Author);
+            Console.WriteLine("\nКоличество книг по авторам:");
+            foreach (var g in groups) Console.WriteLine($"{g.Key}: {g.Count()} книг");
+        }
+
+        static void BulkImport()
+        {
+            Console.WriteLine("Вставьте книги в формате: Название;Автор;Жанр;Год;Цена (каждая книга с новой строки). Для завершения оставьте строку пустой.");
+            while (true)
+            {
+                string line = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(line)) break;
+
+                var parts = line.Split(';');
+                if (parts.Length != 5) { Console.WriteLine("Неверный формат."); continue; }
+
+                if (!Enum.TryParse(parts[2], out Genre genre)) { Console.WriteLine("Неверный жанр."); continue; }
+                if (!int.TryParse(parts[3], out int year)) { Console.WriteLine("Неверный год."); continue; }
+                if (!decimal.TryParse(parts[4], out decimal price)) { Console.WriteLine("Неверная цена."); continue; }
+
+                try
+                {
+                    books.Add(new Book(parts[0], parts[1], genre, year, price));
+                }
+                catch (Exception ex) { Console.WriteLine($"Ошибка: {ex.Message}"); }
+            }
+            Console.WriteLine("Блок книг добавлен.");
+        }
+
+        static void AddToCart()
+        {
+            Console.Write("Введите ID книги для добавления в корзину: ");
+            if (int.TryParse(Console.ReadLine(), out int id))
+            {
+                var book = books.FirstOrDefault(b => b.Id == id);
+                if (book != null)
+                {
+                    cart.Add(book);
+                    Console.WriteLine("Книга добавлена в корзину.");
+                }
+                else Console.WriteLine("Книга не найдена.");
+            }
+            else Console.WriteLine("Неверный ID.");
+        }
+
+        static void ShowCart()
+        {
+            if (!cart.Any()) { Console.WriteLine("Корзина пуста."); return; }
+
+            Console.WriteLine("\nКниги в корзине:");
+            foreach (var b in cart) Console.WriteLine(b);
+
+            Console.WriteLine($"Итоговая стоимость: {cart.Sum(b => b.Price):C}");
+        }
+    }
+}
