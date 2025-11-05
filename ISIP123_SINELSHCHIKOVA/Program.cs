@@ -44,3 +44,27 @@ namespace LibraryApp
         }
     }
 
+    class Program
+    {
+        static List<Book> books = new List<Book>();
+        static List<Book> cart = new List<Book>();
+
+        static void Main(string[] args)
+        {
+            InitializeTestData();
+
+            while (true)
+            {
+                Console.WriteLine("\n Меню библиотеки ");
+                Console.WriteLine("1. Добавить книгу");
+                Console.WriteLine("2. Удалить книгу по ID");
+                Console.WriteLine("3. Найти книги");
+                Console.WriteLine("4. Сортировать книги");
+                Console.WriteLine("5. Показать самую дорогую и самую дешевую книгу");
+                Console.WriteLine("6. Группировка по авторам");
+                Console.WriteLine("7. Вставить блок книг");
+                Console.WriteLine("8. Добавить книгу в корзину");
+                Console.WriteLine("9. Показать корзину и итоговую стоимость");
+                Console.WriteLine("0. Выход");
+                Console.Write("Выберите команду: ");
+                string choice = Console.ReadLine();
