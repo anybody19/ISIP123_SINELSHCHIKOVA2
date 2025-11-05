@@ -25,10 +25,10 @@ namespace LibraryApp
 
         public Book(string title, string author, Genre genre, int year, decimal price)
         {
-            if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Введите название книги");
-            if (string.IsNullOrWhiteSpace(author)) throw new ArgumentException("Введитетавтора книги");
-            if (year <= 0) throw new ArgumentException("Год должен быть положительным");
-            if (price < 0) throw new ArgumentException("Цена не может быть отрицательной");
+            if (string.IsNullOrWhiteSpace(title)) throw new ArgumentException("Название книги не может быть пустым.");
+            if (string.IsNullOrWhiteSpace(author)) throw new ArgumentException("Автор не может быть пустым.");
+            if (year <= 0) throw new ArgumentException("Год должен быть положительным.");
+            if (price < 0) throw new ArgumentException("Цена не может быть отрицательной.");
 
             Id = nextId++;
             Title = title;
@@ -60,7 +60,7 @@ namespace LibraryApp
                 Console.WriteLine("2. Удалить книгу по ID");
                 Console.WriteLine("3. Найти книги");
                 Console.WriteLine("4. Сортировать книги");
-                Console.WriteLine("5. Показать самую дорогую и самую дешевую книгу");
+                Console.WriteLine("5. Показать самую дорогую и самую дешевую книги");
                 Console.WriteLine("6. Группировка по авторам");
                 Console.WriteLine("7. Вставить блок книг");
                 Console.WriteLine("8. Добавить книгу в корзину");
@@ -105,11 +105,11 @@ namespace LibraryApp
                 string author = Console.ReadLine();
                 Console.WriteLine("Жанры: " + string.Join(", ", Enum.GetNames(typeof(Genre))));
                 Console.Write("Выберите жанр: ");
-                if (!Enum.TryParse(Console.ReadLine(), out Genre genre)) { Console.WriteLine("Неверный жанр."); return; }
+                if (!Enum.TryParse(Console.ReadLine(), out Genre genre)) { Console.WriteLine("Неверно указан жанр"); return; }
                 Console.Write("Год: ");
-                if (!int.TryParse(Console.ReadLine(), out int year)) { Console.WriteLine("Неверный год."); return; }
+                if (!int.TryParse(Console.ReadLine(), out int year)) { Console.WriteLine("Неверно указан год"); return; }
                 Console.Write("Цена: ");
-                if (!decimal.TryParse(Console.ReadLine(), out decimal price)) { Console.WriteLine("Неверная цена."); return; }
+                if (!decimal.TryParse(Console.ReadLine(), out decimal price)) { Console.WriteLine("Неверно указана цена"); return; }
 
                 books.Add(new Book(title, author, genre, year, price));
                 Console.WriteLine("Книга добавлена.");
@@ -157,11 +157,11 @@ namespace LibraryApp
                 case "3":
                     Console.WriteLine("Жанры: " + string.Join(", ", Enum.GetNames(typeof(Genre))));
                     Console.Write("Введите жанр: ");
-                    if (!Enum.TryParse(Console.ReadLine(), out Genre genre)) { Console.WriteLine("Неверный жанр."); return; }
+                    if (!Enum.TryParse(Console.ReadLine(), out Genre genre)) { Console.WriteLine("Неверный жанр"); return; }
                     results = books.Where(b => b.Genre == genre);
                     break;
                 default:
-                    Console.WriteLine("Неверный вариант."); return;
+                    Console.WriteLine("Неверный вариант"); return;
             }
 
             Console.WriteLine("\nРезультаты поиска:");
@@ -179,7 +179,7 @@ namespace LibraryApp
                 _ => null
             };
 
-            if (sorted == null) { Console.WriteLine("Неверная команда."); return; }
+            if (sorted == null) { Console.WriteLine("Неверная команда"); return; }
 
             Console.WriteLine("\nОтсортированные книги:");
             foreach (var b in sorted) Console.WriteLine(b);
@@ -187,7 +187,7 @@ namespace LibraryApp
 
         static void ShowMostExpensiveAndCheapest()
         {
-            if (!books.Any()) { Console.WriteLine("Список книг пуст."); return; }
+            if (!books.Any()) { Console.WriteLine("Список книг пуст"); return; }
 
             var maxPrice = books.Max(b => b.Price);
             var minPrice = books.Min(b => b.Price);
@@ -196,13 +196,6 @@ namespace LibraryApp
             foreach (var b in books.Where(b => b.Price == maxPrice)) Console.WriteLine(b);
             Console.WriteLine("\nСамая дешёвая книга:");
             foreach (var b in books.Where(b => b.Price == minPrice)) Console.WriteLine(b);
-        }
-
-        static void GroupByAuthors()
-        {
-            var groups = books.GroupBy(b => b.Author);
-            Console.WriteLine("\nКоличество книг по авторам:");
-            foreach (var g in groups) Console.WriteLine($"{g.Key}: {g.Count()} книг");
         }
 
         static void GroupByAuthors()
@@ -221,11 +214,11 @@ namespace LibraryApp
                 if (string.IsNullOrWhiteSpace(line)) break;
 
                 var parts = line.Split(';');
-                if (parts.Length != 5) { Console.WriteLine("Неверный формат."); continue; }
+                if (parts.Length != 5) { Console.WriteLine("Неверный формат"); continue; }
 
-                if (!Enum.TryParse(parts[2], out Genre genre)) { Console.WriteLine("Неверный жанр."); continue; }
-                if (!int.TryParse(parts[3], out int year)) { Console.WriteLine("Неверный год."); continue; }
-                if (!decimal.TryParse(parts[4], out decimal price)) { Console.WriteLine("Неверная цена."); continue; }
+                if (!Enum.TryParse(parts[2], out Genre genre)) { Console.WriteLine("Неверный жанр"); continue; }
+                if (!int.TryParse(parts[3], out int year)) { Console.WriteLine("Неверный год"); continue; }
+                if (!decimal.TryParse(parts[4], out decimal price)) { Console.WriteLine("Неверная цена"); continue; }
 
                 try
                 {
@@ -263,3 +256,5 @@ namespace LibraryApp
         }
     }
 }
+
+
