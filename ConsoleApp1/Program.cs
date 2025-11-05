@@ -39,10 +39,18 @@ namespace UniversitySystem
             {
                 Students.Add(student);
                 student.Courses.Add(this);
-                Console.WriteLine($"Студент {student.Name} успешно записан на курс {Title}.");
+                Console.WriteLine($"Студент {student.Name} записан на курс {Title}.");
             }
             else
             {
-                Console.WriteLine("Этот студент уже записан на данный курс.");
+                Console.WriteLine("Студент уже записан на курс.");
             }
         }
+
+        / Менеджер для управления системой
+    class UniversityManager
+        {
+            public List<Student> Students = new List<Student>();
+            public List<Teacher> Teachers = new List<Teacher>();
+            public List<Course> Courses = new List<Course>();
+
