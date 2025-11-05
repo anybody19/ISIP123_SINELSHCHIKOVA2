@@ -184,3 +184,49 @@ namespace StoreInventoryApp
                 else Console.WriteLine("Товар не найден.");
             }
         }
+
+
+        static void SearchProducts()
+        {
+            Console.WriteLine("\nПоиск:");
+            Console.WriteLine("1. По коду");
+            Console.WriteLine("2. По названию");
+            Console.WriteLine("3. По категории");
+            Console.Write("Выберите: ");
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    Console.Write("Введите код: ");
+                    if (int.TryParse(Console.ReadLine(), out int code))
+                    {
+                        var p = products.FirstOrDefault(x => x.Code == code);
+                        Console.WriteLine(p != null ? p.ToString() : "Товар не найден.");
+                    }
+                    break;
+
+                case "2":
+                    Console.Write("Введите название: ");
+                    string name = Console.ReadLine();
+                    var foundByName = products.Where(x => x.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
+                    foreach (var item in foundByName) Console.WriteLine("\n" + item);
+                    break;
+
+                case "3":
+                    Console.WriteLine("Выберите категорию: 1 - Food, 2 - Electronics, 3 - Clothes");
+                    if (int.TryParse(Console.ReadLine(), out int cat) && cat >= 1 && cat <= 3)
+                    {
+                        var foundByCat = products.Where(x => x.ProductCategory == (Category)cat);
+                        foreach (var item in foundByCat) Console.WriteLine("\n" + item);
+                    }
+                    else Console.WriteLine("Неверный ввод");
+                    break;
+
+                default:
+                    Console.WriteLine("Ошибка выбора.");
+                    break;
+            }
+        }
+
