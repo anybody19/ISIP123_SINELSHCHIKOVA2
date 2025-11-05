@@ -95,3 +95,53 @@ namespace StoreInventoryApp
             }
         }
 
+        static void AddProduct()
+        {
+            Console.Write("Введите название: ");
+            string name = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("Название не может быть пустым.");
+                return;
+            }
+
+            Console.Write("Введите цену: ");
+            if (!double.TryParse(Console.ReadLine(), out double price) || price <= 0)
+            {
+                Console.WriteLine("Цена должна быть положительным числом.");
+                return;
+            }
+
+            Console.Write("Введите количество: ");
+            if (!int.TryParse(Console.ReadLine(), out int quantity) || quantity < 0)
+            {
+                Console.WriteLine("Количество не может быть отрицательным.");
+                return;
+            }
+            Console.WriteLine("Выберите категорию: 1 - Food, 2 - Electronics, 3 - Clothes");
+            if (!int.TryParse(Console.ReadLine(), out int cat) || cat < 1 || cat > 3)
+            {
+                Console.WriteLine("Неверный выбор категории.");
+                return;
+            }
+
+            products.Add(new Product(name, price, quantity, (Category)cat));
+            Console.WriteLine("Товар успешно добавлен!");
+        }
+
+        static void DeleteProduct()
+        {
+            Console.Write("Введите код товара для удаления: ");
+            if (int.TryParse(Console.ReadLine(), out int code))
+            {
+                Product p = products.FirstOrDefault(x => x.Code == code);
+                if (p != null)
+                {
+                    products.Remove(p);
+                    Console.WriteLine("Товар удалён.");
+                }
+                else Console.WriteLine("Товар не найден.");
+            }
+            else Console.WriteLine("Ошибка ввода.");
+        }
+
