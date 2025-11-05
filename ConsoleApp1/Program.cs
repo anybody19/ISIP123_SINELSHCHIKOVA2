@@ -31,3 +31,19 @@ namespace StoreInventoryApp
             ProductCategory = category;
         }
 
+        public void AddStock(int amount)
+        {
+            Quantity += amount;
+        }
+
+        public bool Sell(int amount)
+        {
+            if (amount <= Quantity)
+            {
+                Quantity -= amount;
+                return true;
+            }
+            return false;
+        }
+
+        public override string ToString()
