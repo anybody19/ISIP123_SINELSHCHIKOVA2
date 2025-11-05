@@ -145,3 +145,22 @@ namespace StoreInventoryApp
             else Console.WriteLine("Ошибка ввода.");
         }
 
+        static void OrderSupply()
+        {
+            Console.Write("Введите код товара: ");
+            if (int.TryParse(Console.ReadLine(), out int code))
+            {
+                Product p = products.FirstOrDefault(x => x.Code == code);
+                if (p != null)
+                {
+                    Console.Write("Введите количество для добавления: ");
+                    if (int.TryParse(Console.ReadLine(), out int amount) && amount > 0)
+                    {
+                        p.AddStock(amount);
+                        Console.WriteLine("Поставка добавлена.");
+                    }
+                    else Console.WriteLine("Количество должно быть положительным.");
+                }
+                else Console.WriteLine("Товар не найден.");
+            }
+        }
