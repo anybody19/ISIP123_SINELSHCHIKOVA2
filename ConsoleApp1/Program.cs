@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace UniversitySystem
 {
-    // Класс Студент
+    //Студент
     class Student
     {
         public int Id { get; set; }
@@ -14,7 +14,7 @@ namespace UniversitySystem
         public List<Course> Courses { get; set; } = new List<Course>();
     }
 
-    // Класс Преподавател
+    //Преподавател
     class Teacher
     {
         public int Id { get; set; }
@@ -24,7 +24,7 @@ namespace UniversitySystem
         public List<Course> Courses { get; set; } = new List<Course>();
     }
 
-    // Класс Курс
+    //Курс
     class Course
     {
         public string Code { get; set; }
@@ -33,3 +33,16 @@ namespace UniversitySystem
 
         public List<Student> Students { get; set; } = new List<Student>();
 
+        public void EnrollStudent(Student student)
+        {
+            if (!Students.Contains(student))
+            {
+                Students.Add(student);
+                student.Courses.Add(this);
+                Console.WriteLine($"Студент {student.Name} успешно записан на курс {Title}.");
+            }
+            else
+            {
+                Console.WriteLine("Этот студент уже записан на данный курс.");
+            }
+        }
