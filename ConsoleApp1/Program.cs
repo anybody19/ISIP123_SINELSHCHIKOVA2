@@ -107,3 +107,50 @@ namespace UniversitySystem
                     Console.WriteLine("Курс не найден.");
                     return;
                 }
+                Console.WriteLine("Выберите преподавателя:");
+                ShowTeachers();
+                Console.Write("Введите ID преподавателя: ");
+                int teacherId = int.Parse(Console.ReadLine());
+
+                Teacher teacher = Teachers.FirstOrDefault(t => t.Id == teacherId);
+                if (teacher == null)
+                {
+                    Console.WriteLine("Преподаватель не найден.");
+                    return;
+                }
+                //устанавливаем преподавателя курса и добавляем курс в список препода
+                course.Teacher = teacher;
+                teacher.Courses.Add(course);
+
+                Console.WriteLine($"Преподаватель {teacher.Name} назначен на курс {course.Title}.\n");
+            }
+
+            public void EnrollStudentToCourse()
+            {
+                Console.WriteLine("Выберите студента:");
+                ShowStudents();
+                Console.Write("Введите ID студента: ");
+                int studentId = int.Parse(Console.ReadLine());
+
+                Student student = Students.FirstOrDefault(s => s.Id == studentId);
+                if (student == null)
+                {
+                    Console.WriteLine("Студент не найден.");
+                    return;
+                }
+
+                Console.WriteLine("Выберите курс:");
+                ShowCourses();
+                Console.Write("Введите код курса: ");
+                string code = Console.ReadLine();
+
+                Course course = Courses.FirstOrDefault(c => c.Code == code);
+                if (course == null)
+                {
+                    Console.WriteLine("Курс не найден.");
+                    return;
+                }
+
+                course.EnrollStudent(student);
+            }
+
