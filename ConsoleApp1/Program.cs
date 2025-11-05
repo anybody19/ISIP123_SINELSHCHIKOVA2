@@ -21,3 +21,13 @@ namespace StoreInventoryApp
         public int Quantity { get; private set; }
         public bool InStock => Quantity > 0;
         public Category ProductCategory { get; private set; }
+
+        public Product(string name, double price, int quantity, Category category)
+        {
+            Code = nextCode++;
+            Name = name;
+            Price = price;
+            Quantity = quantity;
+            ProductCategory = category;
+        }
+
