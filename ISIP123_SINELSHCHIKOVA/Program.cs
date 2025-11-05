@@ -198,3 +198,9 @@ namespace LibraryApp
             foreach (var b in books.Where(b => b.Price == minPrice)) Console.WriteLine(b);
         }
 
+        static void GroupByAuthors()
+        {
+            var groups = books.GroupBy(b => b.Author);
+            Console.WriteLine("\nКоличество книг по авторам:");
+            foreach (var g in groups) Console.WriteLine($"{g.Key}: {g.Count()} книг");
+        }
