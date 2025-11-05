@@ -154,3 +154,28 @@ namespace UniversitySystem
                 course.EnrollStudent(student);
             }
 
+            public void ShowStudents()
+            {
+                Console.WriteLine("\n--- Студенты ---");
+                foreach (var s in Students)
+                    Console.WriteLine($"{s.Id}. {s.Name} ({s.Email})");
+                Console.WriteLine();
+            }
+
+            public void ShowTeachers()
+            {
+                Console.WriteLine("\n--- Преподаватели ---");
+                foreach (var t in Teachers)
+                    Console.WriteLine($"{t.Id}. {t.Name} ({t.Department})");
+                Console.WriteLine();
+            }
+
+            public void ShowCourses()
+            {
+                Console.WriteLine("\n--- Курсы ---");
+                foreach (var c in Courses)
+                    Console.WriteLine($"{c.Code} - {c.Title}");
+                Console.WriteLine();
+            }
+        }
+
