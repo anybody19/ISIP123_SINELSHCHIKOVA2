@@ -184,3 +184,17 @@ namespace LibraryApp
             Console.WriteLine("\nОтсортированные книги:");
             foreach (var b in sorted) Console.WriteLine(b);
         }
+
+        static void ShowMostExpensiveAndCheapest()
+        {
+            if (!books.Any()) { Console.WriteLine("Список книг пуст."); return; }
+
+            var maxPrice = books.Max(b => b.Price);
+            var minPrice = books.Min(b => b.Price);
+
+            Console.WriteLine("\nСамая дорогая книга:");
+            foreach (var b in books.Where(b => b.Price == maxPrice)) Console.WriteLine(b);
+            Console.WriteLine("\nСамая дешёвая книга:");
+            foreach (var b in books.Where(b => b.Price == minPrice)) Console.WriteLine(b);
+        }
+
