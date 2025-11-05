@@ -67,3 +67,31 @@ namespace StoreInventoryApp
             products.Add(new Product("Телефон", 25000, 5, Category.Electronics));
             products.Add(new Product("Джинсы", 2300, 7, Category.Clothes));
 
+            while (true)
+            {
+                Console.WriteLine("\n МЕНЮ ");
+                Console.WriteLine("1. Добавить товар");
+                Console.WriteLine("2. Удалить товар");
+                Console.WriteLine("3. Заказать поставку товара");
+                Console.WriteLine("4. Продать товар");
+                Console.WriteLine("5. Поиск товаров");
+                Console.WriteLine("6. Показать все товары");
+                Console.WriteLine("0. Выход");
+                Console.Write("Выберите действие: ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1": AddProduct(); break;
+                    case "2": DeleteProduct(); break;
+                    case "3": OrderSupply(); break;
+                    case "4": SellProduct(); break;
+                    case "5": SearchProducts(); break;
+                    case "6": ShowAllProducts(); break;
+                    case "0": return;
+                    default: Console.WriteLine("Неверный ввод."); break;
+                }
+            }
+        }
+
