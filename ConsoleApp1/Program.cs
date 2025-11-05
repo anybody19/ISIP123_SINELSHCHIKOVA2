@@ -230,3 +230,14 @@ namespace StoreInventoryApp
             }
         }
 
+        static void ShowAllProducts()
+        {
+            Console.WriteLine("\n Все товары ");
+            foreach (var p in products)
+            {
+                Console.WriteLine(p);
+                Console.WriteLine("-");
+            }
+        }
+    }
+}
