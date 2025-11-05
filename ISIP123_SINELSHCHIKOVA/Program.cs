@@ -120,3 +120,67 @@ namespace LibraryApp
             }
         }
 
+        static void DeleteBook()
+        {
+            Console.Write("Введите ID книги для удаления: ");
+            if (int.TryParse(Console.ReadLine(), out int id))
+            {
+                var book = books.FirstOrDefault(b => b.Id == id);
+                if (book != null)
+                {
+                    books.Remove(book);
+                    Console.WriteLine("Книга удалена.");
+                }
+                else Console.WriteLine("Книга не найдена.");
+            }
+            else Console.WriteLine("Неверный ID.");
+        }
+
+        static void SearchBooks()
+        {
+            Console.WriteLine("Поиск по: 1. Названию 2. Автору 3. Жанру");
+            string option = Console.ReadLine();
+            IEnumerable<Book> results = new List<Book>();
+
+            switch (option)
+            {
+                case "1":
+                    Console.Write("Введите название: ");
+                    string title = Console.ReadLine();
+                    results = books.Where(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+                    break;
+                case "2":
+                    Console.Write("Введите автора: ");
+                    string author = Console.ReadLine();
+                    results = books.Where(b => b.Author.Contains(author, StringComparison.OrdinalIgnoreCase));
+                    break;
+                case "3":
+                    Console.WriteLine("Жанры: " + string.Join(", ", Enum.GetNames(typeof(Genre))));
+                    Console.Write("Введите жанр: ");
+                    if (!Enum.TryParse(Console.ReadLine(), out Genre genre)) { Console.WriteLine("Неверный жанр."); return; }
+                    results = books.Where(b => b.Genre == genre);
+                    break;
+                default:
+                    Console.WriteLine("Неверный вариант."); return;
+            }
+
+            Console.WriteLine("\nРезультаты поиска:");
+            foreach (var b in results) Console.WriteLine(b);
+        }
+
+        static void SortBooks()
+        {
+            Console.WriteLine("Сортировать по: 1. Названию 2. Году");
+            string option = Console.ReadLine();
+            IEnumerable<Book> sorted = option switch
+            {
+                "1" => books.OrderBy(b => b.Title),
+                "2" => books.OrderBy(b => b.Year),
+                _ => null
+            };
+
+            if (sorted == null) { Console.WriteLine("Неверная команда."); return; }
+
+            Console.WriteLine("\nОтсортированные книги:");
+            foreach (var b in sorted) Console.WriteLine(b);
+        }
