@@ -164,3 +164,23 @@ namespace StoreInventoryApp
                 else Console.WriteLine("Товар не найден.");
             }
         }
+
+        static void SellProduct()
+        {
+            Console.Write("Введите код товара: ");
+            if (int.TryParse(Console.ReadLine(), out int code))
+            {
+                Product p = products.FirstOrDefault(x => x.Code == code);
+                if (p != null)
+                {
+                    Console.Write("Введите количество для продажи: ");
+                    if (int.TryParse(Console.ReadLine(), out int amount) && amount > 0)
+                    {
+                        if (p.Sell(amount)) Console.WriteLine("Продажа успешна.");
+                        else Console.WriteLine("Недостаточно товара на складе.");
+                    }
+                    else Console.WriteLine("Количество должно быть положительным.");
+                }
+                else Console.WriteLine("Товар не найден.");
+            }
+        }
