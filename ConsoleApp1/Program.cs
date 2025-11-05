@@ -47,3 +47,23 @@ namespace StoreInventoryApp
         }
 
         public override string ToString()
+
+        {
+            return $"Код: {Code}\nНазвание: {Name}\nЦена: {Price} руб.\nКоличество: {Quantity}\n" +
+                   $"В наличии: {(InStock ? "Да" : "Нет")}\nКатегория: {ProductCategory}";
+        }
+    }
+
+    class Program
+    {
+        static List<Product> products = new List<Product>();
+
+        static void Main(string[] args)
+        {
+            // 5 тестовых товаров
+            products.Add(new Product("Хлеб", 45, 20, Category.Food));
+            products.Add(new Product("Молоко", 80, 15, Category.Food));
+            products.Add(new Product("Футболка", 1200, 10, Category.Clothes));
+            products.Add(new Product("Телефон", 25000, 5, Category.Electronics));
+            products.Add(new Product("Джинсы", 2300, 7, Category.Clothes));
+
